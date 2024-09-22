@@ -37,8 +37,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Japanese Font Install
+        run: sudo apt install fonts-noto-cjk
       - name: Install dependencies
         run: pip install -r ./requirements.txt
+      - name: playwright install
+        run: playwright install
       - run: make revealjs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
