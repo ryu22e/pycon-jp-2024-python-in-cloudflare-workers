@@ -276,7 +276,7 @@ wrangler.tomlの以下項目によってパッケージのバージョンが決�
 
 ### ご清聴ありがとうございました
 ```{figure} thank-you-for-your-attention.*
-:alt: AIが考えた「Cloudflare Workersの可能性を広げるPython」
+:alt: AIが考えた「Cloudflare Workers in Python」
 
-AIが考えた「Cloudflare Workersの可能性を広げるPython」
+AIが考えた「Cloudflare Workers in Python」
 ```
