@@ -202,14 +202,14 @@ wrangler.tomlの以下項目によってパッケージのバージョンが決�
 * compatibility_flags: 互換性フラグ
 * compatibility_date: 互換性日付
 
-### Q. Built-in packagesに自分が使いたいパッケージがない……
-A. Built-in packagesのmicropipを使えば、他のパッケージも使える（ただし、これにも制限がある）。
-
 ### サポートするパッケージとバージョンの一覧
 
 以下の公式ドキュメントで確認できる。
 
 <https://developers.cloudflare.com/workers/languages/python/packages/#supported-packages>
+
+### Q. Built-in packagesに自分が使いたいパッケージがない……
+A. Built-in packagesのmicropipを使えば、他のパッケージも使える（ただし、これにも制限がある）。
 
 ### Cloudflare Workersを簡単に試す方法
 [公式のサンプルコード](https://github.com/cloudflare/python-workers-examples/tree/main/01-hello)を使うと簡単に試すことができる。
