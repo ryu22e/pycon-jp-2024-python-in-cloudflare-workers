@@ -249,6 +249,18 @@ A. Built-in packagesのmicropipを使えば、他のパッケージも使える�
 ### 残念なお知らせ
 この発表時点では、Built-in packagesは本番環境にデプロイできない。
 
+```{revealjs-code-block} shell
+% npx wrangler@latest deploy
+(省略)
+✘ [ERROR] A request to the Cloudflare API (/accounts/****/workers/scripts/built-in-sample) failed.
+
+  You cannot yet deploy Python Workers that depend on packages defined in requirements.txt. Support
+  for Python packages is coming soon. [code: 10021]
+
+  If you think this is a bug, please open an issue at:
+  https://github.com/cloudflare/workers-sdk/issues/new/choose
+```
+
 ## Cloudflare WorkersでPythonが動く仕組み
 ### Q. WASMをサポートしないPythonがなぜ動くの？
 * Cloudflare WorkersはJavaScript(TypeScript)またはWebAssembly（WASM）をサポートしている
