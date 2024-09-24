@@ -247,7 +247,7 @@ A. Built-in packagesのmicropipを使えば、他のパッケージも使える�
 ```
 
 ### 残念なお知らせ
-この発表時点では、built-in packagesは本番環境にデプロイできない。
+この発表時点では、Built-in packagesは本番環境にデプロイできない。
 
 ## Cloudflare WorkersでPythonが動く仕組み
 ### Q. WASMをサポートしないPythonがなぜ動くの？
