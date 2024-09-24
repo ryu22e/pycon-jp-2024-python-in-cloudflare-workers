@@ -179,7 +179,7 @@ compatibility_date = "2024-03-29"
 * SQLiteベースのサーバーレスデータベース
 * Cloudflareのエッジ環境にSQLiteのリードレプリカが配置されることで、高速な読み込みを実現
 
-### built-in packagesとは
+### Built-in packagesとは
 * Cloudflare Workersで提供されているPythonパッケージ
 * requirements.txtにパッケージ名を記述することで利用できる
 
@@ -208,6 +208,9 @@ wrangler.tomlの以下項目によってパッケージのバージョンが決�
 
 <https://developers.cloudflare.com/workers/languages/python/packages/#supported-packages>
 
+### Q. Built-in packagesに自分が使いたいパッケージがない……
+A. Built-in packagesのmicropipを使えば、他のパッケージも使える（ただし、これにも制限がある）。
+
 ### Cloudflare Workersを簡単に試す方法
 [公式のサンプルコード](https://github.com/cloudflare/python-workers-examples/tree/main/01-hello)を使うと簡単に試すことができる。
 ```{revealjs-code-block} shell
@@ -217,7 +220,7 @@ wrangler.tomlの以下項目によってパッケージのバージョンが決�
 % npx wrangler@latest dev
 ```
 
-### build-in packagesを使ったAPI（デモ）
+### built-in packagesを使ったAPI（デモ）
 [以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/built-in-sample)を参照。
 
 ```{revealjs-code-block} shell
@@ -266,7 +269,7 @@ wrangler.tomlの以下項目によってパッケージのバージョンが決�
 ### jsモジュールは正直使いにくいが……
 * JavaScriptとPythonの流儀の違いがあるため、違和感を感じることがある
 * 辞書型で扱えるのを期待するコードで属性アクセスが求められたりして、混乱する
-* build-in packagesがこの使いにくさを緩和してくれることを期待
+* Built-in packagesがこの使いにくさを緩和してくれることを期待
 
 ## 最後に
 ### まとめ
