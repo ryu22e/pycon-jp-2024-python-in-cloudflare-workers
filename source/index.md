@@ -217,7 +217,7 @@ wrangler.tomlの以下項目によってパッケージのバージョンが決�
 % npx wrangler@latest dev
 ```
 
-### build-in packagesを使ったAPI（デモ）
+### built-in packagesを使ったAPI（デモ）
 [以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/built-in-sample)を参照。
 
 ```{revealjs-code-block} shell
@@ -266,7 +266,7 @@ wrangler.tomlの以下項目によってパッケージのバージョンが決�
 ### jsモジュールは正直使いにくいが……
 * JavaScriptとPythonの流儀の違いがあるため、違和感を感じることがある
 * 辞書型で扱えるのを期待するコードで属性アクセスが求められたりして、混乱する
-* build-in packagesがこの使いにくさを緩和してくれることを期待
+* Built-in packagesがこの使いにくさを緩和してくれることを期待
 
 ## 最後に
 ### まとめ
