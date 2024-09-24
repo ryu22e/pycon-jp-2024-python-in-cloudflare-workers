@@ -157,6 +157,12 @@ compatibility_flags = ["python_workers"]
 compatibility_date = "2024-03-29"
 ```
 
+### 環境変数を参照するには
+以下の2種類の方法がある。
+
+1. wrangler.tomlに書く
+1. ローカルは.dev.vars、本番環境はwranglerで設定
+
 ### 環境変数を参照するには（デモ）
 [以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/environment-variables)を参照。
 
