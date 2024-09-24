@@ -179,7 +179,7 @@ compatibility_date = "2024-03-29"
 * SQLiteベースのサーバーレスデータベース
 * Cloudflareのエッジ環境にSQLiteのリードレプリカが配置されることで、高速な読み込みを実現
 
-### built-in packagesとは
+### Built-in packagesとは
 * Cloudflare Workersで提供されているPythonパッケージ
 * requirements.txtにパッケージ名を記述することで利用できる
 
@@ -201,6 +201,9 @@ wrangler.tomlの以下項目によってパッケージのバージョンが決�
 
 * compatibility_flags: 互換性フラグ
 * compatibility_date: 互換性日付
+
+### Q. Built-in packagesに自分が使いたいパッケージがない……
+A. Built-in packagesのmicropipを使えば、他のパッケージも使える（ただし、これにも制限がある）。
 
 ### サポートするパッケージとバージョンの一覧
 
