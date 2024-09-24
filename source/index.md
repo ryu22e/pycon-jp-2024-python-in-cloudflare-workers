@@ -259,7 +259,7 @@ A. Built-in packagesのmicropipを使えば、他のパッケージも使える�
 
 ### jsモジュールが存在する理由
 * workerdは、現状ではJavaScript(TypeScript)またはWASMのランタイムとして作られている
-* これにPythonのを加えると、1から実装することになって大変
+* これにPythonを加えると、1から実装することになって大変
 * そこで、FFI（Foreign Function Interface）を提供して、PythonからJavaScriptのAPIを呼べるようにした
 * jsモジュールは、PythonでもJavaScriptと同等の実装ができるように提供されている次善の策
 
@@ -268,7 +268,7 @@ A. Built-in packagesのmicropipを使えば、他のパッケージも使える�
 
 ### jsモジュールは正直使いにくいが……
 * JavaScriptとPythonの流儀の違いがあるため、違和感を感じることがある
-* 辞書型で扱えるのを期待するコードで属性アクセスが求められたりして、混乱する
+* `request.json()`で辞書型で扱えるのを期待していたら属性アクセスが求められたりして、混乱する
 * Built-in packagesがこの使いにくさを緩和してくれることを期待
 
 ## 最後に
