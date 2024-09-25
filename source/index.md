@@ -134,6 +134,33 @@ async def on_fetch(request, env):
 % # 設定方法はREADME.mdを参照
 ```
 
+```{revealjs-break}
+```
+
+```{revealjs-code-block} python
+from js import Headers, Response, fetch, console, URL
+
+API_URL = "https://httpbin.org"
+
+async def on_fetch(request, env):
+    # /old にアクセスされた場合は/にリダイレクト
+    # JavaScriptだとnew URL(request.url)と書くが、Pythonにnew演算子はないのでこう書く
+    url = URL.new(request.url)
+    if url.pathname == "/old":
+        return Response.redirect(url.origin, 307)
+
+    # JSON形式でレスポンスを返すためのヘッダーを設定
+    headers = Headers.new({"content-type": "application/json; charset=utf-8"}.items())
+
+    # fetch()関数を使ってAPIサーバーにリクエストを送信
+    res = await fetch(f"{API_URL}/ip")
+
+    # レスポンスの内容をコンソールに出力
+    console.log(res)
+
+    return Response.new(res.body, headers=headers)
+```
+
 ### その他のjsモジュールの使用例
 以下の公式サイトを参照。
 
