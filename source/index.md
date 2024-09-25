@@ -237,7 +237,7 @@ SECRET_KEY="local_value"
 % # 設定方法はREADME.mdを参照
 ```
 
-### Cloudflare D1を使ったシンプルなAPI（デモ）
+### Cloudflare D1を使ったシンプルなAPI（時間があればデモ）
 Cloudflare D1とは
 
 * SQLiteベースのサーバーレスデータベース
