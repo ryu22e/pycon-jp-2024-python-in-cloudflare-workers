@@ -108,8 +108,8 @@ Cloudflare Workersとは、サーバーレスアプリケーションをデプ�
 ### Hello worldアプリを構成している各ファイルについて解説
 以下について解説する。
 
-* src/entry.py
-* wrangler.toml
+* src/entry.py: アプリケーションのソースコード
+* wrangler.toml: プロジェクトの設定ファイル
 
 ### src/entry.pyの中身
 
@@ -132,6 +132,33 @@ async def on_fetch(request, env):
 % git clone https://github.com/ryu22e/python-workers-examples.git
 % cd python-workers-examples/js-sample
 % # 設定方法はREADME.mdを参照
+```
+
+```{revealjs-break}
+```
+
+```{revealjs-code-block} python
+from js import Headers, Response, fetch, console, URL
+
+API_URL = "https://httpbin.org"
+
+async def on_fetch(request, env):
+    # /old にアクセスされた場合は/にリダイレクト
+    # JavaScriptだとnew URL(request.url)と書くが、Pythonにnew演算子はないのでこう書く
+    url = URL.new(request.url)
+    if url.pathname == "/old":
+        return Response.redirect(url.origin, 307)
+
+    # JSON形式でレスポンスを返すためのヘッダーを設定
+    headers = Headers.new({"content-type": "application/json; charset=utf-8"}.items())
+
+    # fetch()関数を使ってAPIサーバーにリクエストを送信
+    res = await fetch(f"{API_URL}/ip")
+
+    # レスポンスの内容をコンソールに出力
+    console.log(res)
+
+    return Response.new(res.body, headers=headers)
 ```
 
 ### その他のjsモジュールの使用例
@@ -181,7 +208,7 @@ MY_NAME = "Ryuji Tsutsui"
 ```
 
 ### 環境変数を定義するには(2)
-秘密の値の場合、ローカルは.dev.varsファイルに書く。
+秘密の値（例: APIキー）の場合、ローカルではプロジェクト直下の.dev.varsファイルに書く。
 ```{revealjs-code-block} text
 SECRET_KEY="local_value"
 ```
@@ -201,7 +228,7 @@ SECRET_KEY="local_value"
 ✨ Success! Uploaded secret SECRET_KEY
 ```
 
-### 実際に環境変数を定義・参照してみる（デモ）
+### 実際に環境変数を定義・参照してみる（時間があればデモ）
 [以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/environment-variables)を参照。
 
 ```{revealjs-code-block} shell
@@ -343,18 +370,8 @@ async def example(req: Request):
     ...
 ```
 
-### Cloudflare Workersを簡単に試す方法
-[公式のサンプルコード](https://github.com/cloudflare/python-workers-examples/tree/main/01-hello)を使うと簡単に試すことができる（デモは自分で作ったアプリを使うので省略）。
-
-```{revealjs-code-block} shell
-
-% git clone https://github.com/cloudflare/python-workers-examples.git
-% cd python-workers-examples/03-fastapi
-% npx wrangler@latest dev
-```
-
-### Built-in packagesを使ったAPI（デモ）
-[以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/built-in-sample)を参照（時間がなければスキップ）。
+### Built-in packagesを使ったAPI（時間があればデモ）
+[以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/built-in-sample)を参照。
 
 ```{revealjs-code-block} shell
 
