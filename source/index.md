@@ -416,7 +416,7 @@ async def example(req: Request):
 参考: [Standard Library provided to Python Workers](https://developers.cloudflare.com/workers/languages/python/stdlib/)
 
 ### サードパーティパッケージも何でも使えるわけではない
-* 一部のパッケージはCloudflare Workersで動かすためにパッチが当てられている
+* 一部のBuilt-in packagesはCloudflare Workersで動かすためにパッチが当てられている
 * 本番環境へのデプロイがなかなかできるようにならないのは、この制限が関係しているのかも？
 
 ### jsモジュールが存在する理由
