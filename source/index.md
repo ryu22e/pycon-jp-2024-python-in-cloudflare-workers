@@ -228,7 +228,7 @@ SECRET_KEY="local_value"
 ✨ Success! Uploaded secret SECRET_KEY
 ```
 
-### 実際に環境変数を定義・参照してみる（デモ）
+### 実際に環境変数を定義・参照してみる（時間があればデモ）
 [以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/environment-variables)を参照。
 
 ```{revealjs-code-block} shell
@@ -380,8 +380,8 @@ async def example(req: Request):
 % npx wrangler@latest dev
 ```
 
-### Built-in packagesを使ったAPI（デモ）
-[以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/built-in-sample)を参照（時間がなければスキップ）。
+### Built-in packagesを使ったAPI（時間があればデモ）
+[以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/built-in-sample)を参照。
 
 ```{revealjs-code-block} shell
 
