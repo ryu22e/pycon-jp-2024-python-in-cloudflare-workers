@@ -370,16 +370,6 @@ async def example(req: Request):
     ...
 ```
 
-### Cloudflare Workersを簡単に試す方法
-[公式のサンプルコード](https://github.com/cloudflare/python-workers-examples/tree/main/01-hello)を使うと簡単に試すことができる（デモは自分で作ったアプリを使うので省略）。
-
-```{revealjs-code-block} shell
-
-% git clone https://github.com/cloudflare/python-workers-examples.git
-% cd python-workers-examples/03-fastapi
-% npx wrangler@latest dev
-```
-
 ### Built-in packagesを使ったAPI（時間があればデモ）
 [以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/built-in-sample)を参照。
 
