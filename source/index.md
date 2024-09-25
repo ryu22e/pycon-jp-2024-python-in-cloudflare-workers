@@ -354,7 +354,7 @@ async def example(req: Request):
 ```
 
 ### Built-in packagesを使ったAPI（デモ）
-[以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/built-in-sample)を参照。
+[以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/built-in-sample)を参照（時間がなければスキップ）。
 
 ```{revealjs-code-block} shell
 
