@@ -43,15 +43,15 @@ Ryuji Tsutsui/PyCon JP 2024資料
 Cloudflare Workersとは、サーバーレスアプリケーションをデプロイできるプラットフォーム。
 
 ### Cloudflare Workersの特徴(1)
-世界中にあるサーバーにコードをデプロイし、クライアントは物理的に近いサーバーからレスポンスを受け取る。
+プログラマーは世界中にあるサーバー（エッジ環境）にコードをデプロイし、ユーザーは物理的に近いサーバーからレスポンスを受け取る。
 
 ```{revealjs-break}
 ```
 
 ```{figure} cloudflare-workers-image.*
-:alt: 世界中のエッジ環境にデプロイされる
+:alt: イメージ図
 
-世界中のエッジ環境にデプロイされる
+イメージ図
 ```
 
 ### Cloudflare Workersの特徴(2)
@@ -65,7 +65,6 @@ Cloudflare Workersとは、サーバーレスアプリケーションをデプ�
 
 ### Cloudflare WorkersがAWS Lambda@Edgeよりも優れている点
 * 無料枠がある
-* デプロイが高速（1分程度で完了）
 * JavaScriptを高速に実行するためのチューニングがされている
 
 参考: [サーバーレスコンピューティングがパフォーマンスを改善する方法とは?| Lambdaのパフォーマンス | Cloudflare](https://www.cloudflare.com/ja-jp/learning/serverless/serverless-performance/)
@@ -167,11 +166,40 @@ async def on_fetch(request, env):
     return Response.new(f"My name is {env.MY_NAME}.\nSECRET_KEY: {env.SECRET_KEY}")
 ```
 
-### 環境変数を定義するには
-以下の2種類の方法がある。
+### 環境変数を定義するには(1)
+公開してもよい値の場合、wrangler.tomlに書く。
 
-1. wrangler.tomlに書く
-1. ローカルは.dev.varsファイル、本番環境はwranglerで設定
+```{revealjs-code-block} toml
+name = "environment-variables"
+main = "src/entry.py"
+compatibility_flags = ["python_workers"]
+compatibility_date = "2024-03-29"
+
+# ↓ここに環境変数を書く
+[vars]
+MY_NAME = "Ryuji Tsutsui"
+```
+
+### 環境変数を定義するには(2)
+秘密の値の場合、ローカルは.dev.varsファイルに書く。
+```{revealjs-code-block} text
+SECRET_KEY="local_value"
+```
+
+```{revealjs-break}
+```
+本番環境は`npx wrangler secret put {環境変数名}`で設定。
+
+```{revealjs-code-block} shell
+% npx wrangler secret put SECRET_KEY
+
+ ⛅️ wrangler 3.78.8
+-------------------
+
+✔ Enter a secret value: … ****************
+🌀 Creating the secret for the Worker "environment-variables"
+✨ Success! Uploaded secret SECRET_KEY
+```
 
 ### 実際に環境変数を定義・参照してみる（デモ）
 [以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/environment-variables)を参照。
@@ -183,6 +211,46 @@ async def on_fetch(request, env):
 ```
 
 ### Cloudflare D1を使ったシンプルなAPI（デモ）
+Cloudflare D1とは
+
+* SQLiteベースのサーバーレスデータベース
+* Cloudflareのエッジ環境にSQLiteのリードレプリカが配置されることで、高速な読み込みを実現
+
+```{revealjs-break}
+```
+データベースの作り方は以下の通り。
+
+```{revealjs-code-block} shell
+% # データベース「bookshelf」の作成
+% npx wrangler d1 create bookshelf
+% # ↑出力された内容をwrangler.tomlに追記
+% # テーブルの作成（ローカル）
+% npx wrangler d1 execute bookshelf --local --file=./schema.sql
+% # テーブルの作成（本番）
+% npx wrangler d1 execute bookshelf --remote --file=./schema.sql
+```
+
+```{revealjs-break}
+```
+DBアクセスのサンプルコードは以下の通り。
+
+```{revealjs-code-block} python
+async def on_fetch(request, env):
+    ...
+    # INSERT文
+    await (
+        env.DB.prepare("INSERT INTO books (title, description) VALUES (?, ?)")
+        .bind(title, description)
+        .run()
+    )
+    # SELECT文
+    r = await env.DB.prepare("SELECT * from books").all()
+    print(r.results)
+    ...
+```
+
+```{revealjs-break}
+```
 [以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/simple-api)を参照。
 
 ```{revealjs-code-block} shell
@@ -191,18 +259,34 @@ async def on_fetch(request, env):
 % # 設定方法はREADME.mdを参照
 ```
 
-### Cloudflare D1とは
-* SQLiteベースのサーバーレスデータベース
-* Cloudflareのエッジ環境にSQLiteのリードレプリカが配置されることで、高速な読み込みを実現
 
 ### Built-in packagesとは
 * Cloudflare Workersで提供されているPythonパッケージ
 * requirements.txtにパッケージ名を記述することで利用できる
+* 予め用意されたパッケージのみ利用可能
 
 ### requirements.txtの記述例
 ```{revealjs-code-block} text
 
 fastapi
+```
+
+### FastAPIのコード例
+```{revealjs-code-block} python
+from fastapi import FastAPI
+
+# この関数の定義は必ず必要
+async def on_fetch(request, env):
+    import asgi
+
+    return await asgi.fetch(app, request, env)
+
+# これ以降は普通のFastAPIのコード
+app = FastAPI()
+
+@app.get("/")
+async def root(req: Request):
+    ...
 ```
 
 ### Q. requirements.txtって普通こう書かない？
@@ -227,8 +311,41 @@ wrangler.tomlの以下項目によってパッケージのバージョンが決�
 ### Q. Built-in packagesに自分が使いたいパッケージがない……
 A. Built-in packagesのmicropipを使えば、他のパッケージも使える（ただし、これにも制限がある）。
 
+### micropipのコード例(1)
+```{revealjs-code-block} python
+import micropip
+
+# FastAPIの設定は省略
+
+@app.get("/example")
+async def example(req: Request):
+    await micropip.install("beautifulsoup4==4.12.3")
+
+    # beautifulsoup4はbuilt-in packagesにはないが
+    # micropipでインストールできる
+    from bs4 import BeautifulSoup
+    ...
+```
+
+### micropipのコード例(2)
+```{revealjs-code-block} python
+import micropip
+
+# FastAPIの設定は省略
+@app.get("/example")
+async def example(req: Request):
+    """micropip.install()が失敗する例"""
+    # pandas==2.2.2はpure Pyhon wheelがないため、
+    # micropipでインストールできずエラーになる
+    # 参考: https://pyodide.org/en/stable/usage/faq.html#why-can-t-micropip-find-a-pure-python-wheel-for-a-package
+    # （wheelとはPythonコードを1個のファイルにまとめたアーカイブ）
+    await micropip.install("pandas==2.2.2")
+    ...
+```
+
 ### Cloudflare Workersを簡単に試す方法
-[公式のサンプルコード](https://github.com/cloudflare/python-workers-examples/tree/main/01-hello)を使うと簡単に試すことができる。
+[公式のサンプルコード](https://github.com/cloudflare/python-workers-examples/tree/main/01-hello)を使うと簡単に試すことができる（デモは自分で作ったアプリを使うので省略）。
+
 ```{revealjs-code-block} shell
 
 % git clone https://github.com/cloudflare/python-workers-examples.git
