@@ -108,8 +108,8 @@ Cloudflare Workersとは、サーバーレスアプリケーションをデプ�
 ### Hello worldアプリを構成している各ファイルについて解説
 以下について解説する。
 
-* src/entry.py
-* wrangler.toml
+* src/entry.py: アプリケーションのソースコード
+* wrangler.toml: プロジェクトの設定ファイル
 
 ### src/entry.pyの中身
 
