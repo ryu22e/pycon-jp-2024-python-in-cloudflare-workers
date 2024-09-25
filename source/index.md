@@ -208,7 +208,7 @@ MY_NAME = "Ryuji Tsutsui"
 ```
 
 ### 環境変数を定義するには(2)
-秘密の値の場合、ローカルは.dev.varsファイルに書く。
+秘密の値（例: APIキー）の場合、ローカルではプロジェクト直下の.dev.varsファイルに書く。
 ```{revealjs-code-block} text
 SECRET_KEY="local_value"
 ```
