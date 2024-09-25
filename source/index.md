@@ -126,16 +126,6 @@ async def on_fetch(request, env):
 * `Headers`や`fetch`なども呼べる
 
 ### jsモジュールの使用例
-[以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/js-sample)を参照。
-```{revealjs-code-block} shell
-
-% git clone https://github.com/ryu22e/python-workers-examples.git
-% cd python-workers-examples/js-sample
-% # 設定方法はREADME.mdを参照
-```
-
-```{revealjs-break}
-```
 
 ```{revealjs-code-block} python
 from js import Headers, Response, fetch, console, URL
@@ -159,6 +149,15 @@ async def on_fetch(request, env):
     console.log(res)
 
     return Response.new(res.body, headers=headers)
+```
+
+### jsモジュールのサンプルコード
+[以下のサンプルコード](https://github.com/ryu22e/python-workers-examples/tree/main/js-sample)を参照。
+```{revealjs-code-block} shell
+
+% git clone https://github.com/ryu22e/python-workers-examples.git
+% cd python-workers-examples/js-sample
+% # 設定方法はREADME.mdを参照
 ```
 
 ### その他のjsモジュールの使用例
