@@ -63,7 +63,7 @@ Cloudflare Workersとは、サーバーレスアプリケーションをデプ�
 ### Cloudflare Workersの類似サービス
 類似サービスにAWS Lamnda@Edgeがある。
 
-### Cloudflare WorkersがAWS Lambda@Edgeよりも優れている点
+### Cloudflare WorkersがAWS Lambda@Edgeと異なる点
 * 無料枠がある
 * JavaScriptを高速に実行するためのチューニングがされている
 
